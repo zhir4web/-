@@ -1,108 +1,113 @@
-window.addEventListener('load',init);
+window.addEventListener('load', init);
+
 let time = 6;
 let score = 0;
+let highScore = 0;
 let isPlaying;
+let difficulty = 'medium';
+let timeInterval;
 
-//DOM 
+// DOM
 const currentWord = document.querySelector('#current-word');
 const wordInput = document.getElementById('word-input');
-const timeDisplay= document.querySelector('#time');
-const scoreDisplay= document.querySelector('#score');
+const timeDisplay = document.querySelector('#time');
+const scoreDisplay = document.querySelector('#score');
 const message = document.querySelector('#message');
+const highScoreDisplay = document.querySelector('#high-score');
 
-
-// array
-
+// وشەکان
 const words = [
-    "ژیر",
-    "ڤێنوار",
-    "ولیام",
-    "خواستی",
-    "هەستی",
-    "پەیوەند",
-    "محمەد",
-    "ئاکار",
-    "حوسێن",
-    "ڕامین",
-    "ئەحمد",
-    "کۆڤین",
-    "شادە",
-    "مەنسا",
-    "خولەی بچووک",
-    "فلاوفل",
-    "مریشک",
-    "ئەنەس",
-    "کتێب",
-    "جگەر",
-    "کوبە",
-    "شفتە",
-    "بۆرەک",
-    "ماسی",
-    "کەر",
-    "بزن",
-    "مەڕ",
-    "کۆتر",
-    "شێر",
-    "کەروێشک"
+  " ژیر لەفە", " ڤێنوار لەفە", "ولیام", "خواستی", "هەستی", "پەیوەند", "محمەد",
+  "ئاکار", "حوسێن", "ڕامین", "ئەحمەد", "کۆڤین", "شادە", "مەنسا", "خولەی بچووک",
+  "میرشاد", "فلاوفل", "مریشک", "ئەنەس", "کتێب", "جگەر", "کوبە", "شفتە", "بۆرەک",
+  "ماسی", "کەر", "بزن", "مەڕ", "کۆتر", "شێر", "کەروێشک"
 ];
 
+// Start game
+function init() {
+  // گەڕانەوەی خاڵی باشترین یاریزان
+  highScore = localStorage.getItem('highScore') || 0;
+  highScoreDisplay.innerHTML = highScore;
 
-// init game 
+  showWord(words);
 
-function init(){
-    showWord(words);
+  timeInterval = setInterval(countDown, 1000);
+  setInterval(cheackStatus, 50);
 
-    setInterval(countDown,1000);
-
-    setInterval(cheackStatus,50);
-
-    wordInput.addEventListener('input',startGame);
-
+  wordInput.addEventListener('input', startGame);
 }
 
-function showWord(words){
-    const randIndex =Math.floor(Math.random()* words.length);
-   currentWord.innerHTML = words[randIndex];
+// Random word display
+function showWord(words) {
+  const randIndex = Math.floor(Math.random() * words.length);
+  const word = words[randIndex];
+  currentWord.innerHTML = word;
+
+  const colors = ['text-green-400', 'text-yellow-400', 'text-pink-400', 'text-cyan-400'];
+  currentWord.className = `mb-5 text-2xl font-bold ${colors[Math.floor(Math.random() * colors.length)]}`;
 }
 
-function countDown(){
-    if (time>0){
-        time--;
-    }else if (time ==0){
+// Countdown
+function countDown() {
+  if (time > 0) {
+    time--;
+  } else if (time === 0) {
     isPlaying = false;
-    }
-    timeDisplay.innerHTML=time;
+  }
+  timeDisplay.innerHTML = time;
 }
 
+// Check status
+function cheackStatus() {
+  if (score > highScore) {
+    highScore = score;
+    localStorage.setItem('highScore', highScore);
+    highScoreDisplay.innerHTML = highScore;
+  }
 
-function cheackStatus(){
-    if (time === 0 && isPlaying === false){
-        message.innerHTML = 'game over';
-        score=-1;
-    }
+  if (score === 50) {
+    isPlaying = false;
+    message.innerHTML = '🏆 تۆ بردی یارییەکە!';
+    clearInterval(timeInterval);
+  }
+
+  if (time === 0 && isPlaying === false) {
+    message.innerHTML = '💀 یاری تەواو بوو';
+    score = 0;
+    scoreDisplay.innerHTML = 0;
+  }
 }
 
-function startGame(){
-    if(matchWord()){
-        isPlaying = true;
-        time = 6;
-        showWord(words);
-        wordInput.value ='';
-        score++;
-    }
-    if(score === -1){
-        scoreDisplay.innerHTML = 0;
-    }else{
-        scoreDisplay.innerHTML=score;
-    }
+// Start game logic
+function startGame() {
+  if (matchWord()) {
+    isPlaying = true;
+
+    // زمانەکە پەیوەندیدار بە قورسییە
+    if (difficulty === 'easy') time = 8;
+    if (difficulty === 'medium') time = 6;
+    if (difficulty === 'hard') time = 4;
+
+    showWord(words);
+    wordInput.value = '';
+    score++;
+  }
+
+  scoreDisplay.innerHTML = score < 0 ? 0 : score;
 }
 
-function matchWord(){
-    if(wordInput.value === currentWord.innerHTML){
-        message.innerHTML = 'correct';
-        return true;
-    }else {
-        message.innerHTML = '';
-        return false;
-    }
+// Check match
+function matchWord() {
+  if (wordInput.value.trim() === currentWord.innerHTML.trim()) {
+    message.innerHTML = '✅ ڕاستە! بەردەوام بە 🚀';
+    return true;
+  } else {
+    message.innerHTML = '❌ هەڵەیە!';
+    return false;
+  }
+}
+
+// Difficulty switcher
+function setDifficulty(level) {
+  difficulty = level;
 }
