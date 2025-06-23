@@ -4,11 +4,11 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>خێراکردنی نووسین</title>
+  <title>نوسین بەخێرای</title>
 
   <!-- ✅ فۆنتی کوردی - گووگڵ -->
   <link href="https://fonts.googleapis.com/css2?family=Noto+Naskh+Arabic&display=swap" rel="stylesheet">
-  
+
   <!-- ✅ فایلەکانی Tailwind CSS -->
   <link rel="stylesheet" href="css/output.css">
 
@@ -19,79 +19,64 @@
     }
   </style>
 </head>
-
 <body class="bg-slate-800 text-white m-0 p-0">
   <header class="bg-slate-400 text-center p-3 mb-5">
-    <h1 class="text-2xl sm:text-3xl">نوسین بەخێرای</h1>
+    <h1 class="text-3xl">نوسین بەخێرای</h1>
   </header>
 
-  <div class="container mx-auto px-4 sm:px-8 md:px-16 text-center">
-    <!-- وشە و دەستنووس -->
-    <div class="row">
-      <div class="sm:pr-10 md:pr-20 lg:pr-32 mx-auto">
-        <p class="text-base sm:text-lg md:text-xl">
-          وشەی دیاری کراو لە ماوەی
-          <span class="text-green-400 font-bold" id="success">6</span>
-          چرکەدا بنووسە:
-        </p>
+  <!-- ⚙️ هەڵبژاردنی قورسی و دەستپێکردن -->
+  <div class="text-center my-6">
+    <h3 class="mb-3 text-lg font-semibold">🧠 یەکەێک لە ئاستەکان هەڵبژێرەو، دوایە یارییەکە دەست پێبکە:</h3>
 
-        <h2 class="mb-5 text-xl sm:text-2xl font-bold" id="current-word">hello</h2>
+    <div class="flex justify-center gap-3 flex-wrap mb-4">
+      <button onclick="setDifficulty('easy')" class="difficulty-btn bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-full shadow-md">ئاسان</button>
+      <button onclick="setDifficulty('medium')" class="difficulty-btn bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-2 rounded-full shadow-md">ناوەند</button>
+      <button onclick="setDifficulty('hard')" class="difficulty-btn bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-full shadow-md">سەخت</button>
+    </div>
 
-       <input 
-  type="text" 
-  class="w-full max-w-md mx-auto text-center text-black text-lg p-3 border-2 border-green-400 rounded-lg shadow-lg focus:outline-none focus:ring-4 focus:ring-green-300 transition duration-200 ease-in-out" 
-  placeholder="دەست بکە بە نوسین" 
-  id="word-input" 
-  autofocus>
+    <div>
+      <button onclick="startGameHandler()" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-full text-lg shadow-lg transition">
+        🎮 دەست پێکردن
+      </button>
+    </div>
+  </div>
 
-        <h4 class="mt-3 text-green-300 text-base sm:text-lg" id="message"></h4>
-
-        <!-- کات و ئەنجام -->
-        <div class="row mt-5 flex flex-col sm:flex-row justify-around gap-4 sm:gap-0">
-          <div>
-            <h3 class="text-base sm:text-lg">کاتی ماوە: <span id="time">0</span></h3>
-          </div>
-          <div>
-            <h3 class="text-base sm:text-lg">ئەنجام: <span id="score">0</span></h3>
-          </div>
-        </div>
-
-        <!-- دووگمەکانی هەڵبژاردنی ئاستی قورس -->
-<div class="w-full p-4 justify-between md:justify-start gap-3 my-6 px-4">
-  <button onclick="setDifficulty('easy')" class="transition-all duration-300 bg-green-500 hover:bg-green-600 text-white px-5 py-2 rounded-full shadow-md text-sm sm:text-base font-semibold focus:outline-none focus:ring-2 focus:ring-green-300">
-    ئاسان
-  </button>
-  <button onclick="setDifficulty('medium')" class="transition-all duration-300 bg-yellow-500 hover:bg-yellow-600 text-white px-5 py-2 rounded-full shadow-md text-sm sm:text-base font-semibold focus:outline-none focus:ring-2 focus:ring-yellow-300">
-    ناوەند
-  </button>
-  <button onclick="setDifficulty('hard')" class="transition-all duration-300 bg-red-500 hover:bg-red-600 text-white px-5 py-2 rounded-full shadow-md text-sm sm:text-base font-semibold focus:outline-none focus:ring-2 focus:ring-red-300">
-    سەخت
-  </button>
-</div>
-
-  <!-- ✅ لای چەپ بۆ زانیاری -->
-  <aside class="bg-slate-700 text-white p-4 w-full md:w-1/4 text-center md:text-right">
-    <h2 class="text-xl font-bold mb-3">📊 زانیاری</h2>
+  <!-- 📊 خاڵی باشترین یاریزان -->
+  <div class="bg-slate-700 text-white text-center p-4 rounded-lg mb-4">
+    <h2 class="text-xl font-bold mb-2">📊 زانیاری</h2>
     <p class="text-lg">🏅 زۆرترین خاڵ: <span id="high-score" class="text-green-400 font-bold">0</span></p>
-  </aside>
+  </div>
 
-  <!-- ✅ ناوەڕاستی یاری -->
-  <main class="w-full md:w-3/4">
-    <!-- بۆی ناوەڕاستی یارییەکەت ئەو کۆدەی سەردەسەری تۆ بنێ -->
-  </main>
-</div>
+  <!-- 🕹️ ناوەڕاستی یاری -->
+  <div class="container text-center mx-auto px-4">
+    <div class="max-w-xl mx-auto">
+      <p class="lead">
+        وشەی دیاری کراو لە ماوەی <span class="text-green-400 font-bold" id="success">5</span> چرکەدا بنووسە:
+      </p>
 
+      <h2 class="mb-5 text-2xl font-bold" id="current-word">Hello</h2>
 
+      <input type="text" class="w-full max-w-md mx-auto text-center text-black text-lg p-3 border-2 border-green-400 rounded-lg shadow-lg focus:outline-none focus:ring-4 focus:ring-green-300 transition duration-200 ease-in-out" placeholder="دەست بکە بە نوسین" id="word-input" autofocus>
 
-        <!-- ڕێنمایی -->
-        <div class="mt-5">
-          <div class="card card-body bg-slate-600 text-white p-4 rounded-lg text-sm sm:text-base">
-            <h5 class="font-bold text-lg sm:text-xl mb-2">ڕێنمایی</h5>
-            <p>
-              هەر ووشەیەک لە ماوەی دیاری کراودا بنووسە بۆ ئەوەی خاڵ کۆ بکەیتەوە.
-              بۆ دووبارە یاریکردن تەنها ووشەی نوێ بنووسە، ئەنجامەکە نوێ دەبێتەوە.
-            </p>
-          </div>
+      <h4 class="mt-3 text-green-300" id="message"></h4>
+
+      <div class="row mt-5 flex justify-around">
+        <div>
+          <h3>کاتی ماوە: <span id="time">0</span></h3>
+        </div>
+        <div>
+          <h3>ئەنجام: <span id="score">0</span></h3>
+        </div>
+      </div>
+
+      <!-- ڕێنمایی -->
+      <div class="mt-5">
+        <div class="card card-body bg-slate-600 text-white p-4 rounded-lg">
+          <h5 class="font-bold text-xl mb-2">ڕێنمایی</h5>
+          <p>
+            هەر ووشەیەک لە ماوەی دیاری کراودا بنووسە بۆ ئەوەی خاڵ کۆ بکەیتەوە.
+            بۆ دووبارە یاریکردن تەنها ووشەی نوێ بنووسە، ئەنجامەکە نوێ دەبێتەوە.
+          </p>
         </div>
       </div>
     </div>
