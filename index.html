@@ -22,39 +22,39 @@
 
 <body class="bg-slate-800 text-white m-0 p-0">
   <header class="bg-slate-400 text-center p-3 mb-5">
-    <h1 class="text-3xl">نوسین بەخێرای</h1>
+    <h1 class="text-2xl sm:text-3xl">نوسین بەخێرای</h1>
   </header>
 
-  <div class="container text-center mx-16">
+  <div class="container mx-auto px-4 sm:px-8 md:px-16 text-center">
     <!-- وشە و دەستنووس -->
     <div class="row">
-      <div class="pr-32 mx-auto">
-        <p class="lead">
+      <div class="sm:pr-10 md:pr-20 lg:pr-32 mx-auto">
+        <p class="text-base sm:text-lg md:text-xl">
           وشەی دیاری کراو لە ماوەی
           <span class="text-green-400 font-bold" id="success">5</span>
           چرکەدا بنووسە:
         </p>
 
-        <h2 class="mb-5 text-2xl font-bold" id="current-word">Hello</h2>
+        <h2 class="mb-5 text-xl sm:text-2xl font-bold" id="current-word">Hello</h2>
 
-        <input type="text" class="form-control form-control-lg text-center text-black" placeholder="دەست بکە بە نوسین" id="word-input" autofocus>
+        <input type="text" class="form-control form-control-lg text-center text-black w-full max-w-md mx-auto p-2 rounded-md" placeholder="دەست بکە بە نوسین" id="word-input" autofocus>
 
-        <h4 class="mt-3 text-green-300" id="message"></h4>
+        <h4 class="mt-3 text-green-300 text-base sm:text-lg" id="message"></h4>
 
         <!-- کات و ئەنجام -->
-        <div class="row mt-5 flex justify-around">
-          <div class="">
-            <h3>کاتی ماوە: <span id="time">0</span></h3>
+        <div class="row mt-5 flex flex-col sm:flex-row justify-around gap-4 sm:gap-0">
+          <div>
+            <h3 class="text-base sm:text-lg">کاتی ماوە: <span id="time">0</span></h3>
           </div>
-          <div class="">
-            <h3>ئەنجام: <span id="score">0</span></h3>
+          <div>
+            <h3 class="text-base sm:text-lg">ئەنجام: <span id="score">0</span></h3>
           </div>
         </div>
 
         <!-- ڕێنمایی -->
         <div class="mt-5">
-          <div class="card card-body bg-slate-600 text-white p-4 rounded-lg">
-            <h5 class="font-bold text-xl mb-2">ڕێنمایی</h5>
+          <div class="card card-body bg-slate-600 text-white p-4 rounded-lg text-sm sm:text-base">
+            <h5 class="font-bold text-lg sm:text-xl mb-2">ڕێنمایی</h5>
             <p>
               هەر ووشەیەک لە ماوەی دیاری کراودا بنووسە بۆ ئەوەی خاڵ کۆ بکەیتەوە.
               بۆ دووبارە یاریکردن تەنها ووشەی نوێ بنووسە، ئەنجامەکە نوێ دەبێتەوە.
@@ -64,7 +64,6 @@
       </div>
     </div>
   </div>
-
 
   <script src="scripts.js"></script>
 </body>
